@@ -22,4 +22,4 @@ This project will be a beginner friendly course designed to prepare young engine
 ### Installation
 1. Clone the repository:
 ```bash
-git clone https://github.com/nicholasrymarz/ASMEUF_Design_Project_S26.git
+git clone https://github.com/nickrymarz/ASMEUF_Design_Project_S26.git
