@@ -28,9 +28,9 @@ int pos2 = 0;
 int pos3 = 0; // Change to starting val from calibration
 int pos4 = 0;
 
-const int speed = 2; // ADD SECOND
+const int speed = 5; // ADD SECOND
 
-const int buffer = 40; // ADD SECOND
+const int buffer = 20; // ADD SECOND
 
 
 
@@ -49,10 +49,10 @@ int move(int pos, int dir, Servo &servo){
 }
 
 int read_joy(int joy_pin){
+// Potential addition/extra could be to add a speed variable based on how far the joystick is pushed
   int joy_val = analogRead(joy_pin);
   int dir;
 
-  
   if (joy_val < 512-buffer){ // 12 bit buffer, 512 is the center 
     dir = -1;
   }
@@ -66,11 +66,33 @@ int read_joy(int joy_pin){
 }
 
 
+// Potential fucntion to add a button functionality 
 
+
+void setup() {
+  // This code happens before the main loop
+  
+  // First, lets initializes pins: Prevents frying the board
+  // it can pick up on noise and read incorrectly. Arduinos have internal pull up resistors built in
+  pinMode(JOY_X1, INPUT); // Dont need it for the joystick or potentiometer because it is always electrically connected
+  pinMode(JOY_Y1, INPUT);
+  pinMode(JOY_X2, INPUT); // Dont need it for the joystick or potentiometer because it is always electrically connected
+  pinMode(JOY_Y2, INPUT);
+
+  // When using the servo library, pinmode is not necessary 
+  servo1.attach(SERVO1);
+  servo2.attach(SERVO2);
+  servo3.attach(SERVO3);
+  servo4.attach(SERVO4);
+
+  servo1.write(pos1);
+  servo2.write(pos2);
+  servo3.write(pos3);
+  servo4.write(pos4);
+}
 
 void loop() {
   // put your main code here, to run repeatedly:
- 
   
   int dir_x1 = read_joy(JOY_X1);
   int dir_y1 = read_joy(JOY_Y1);
@@ -81,6 +103,7 @@ void loop() {
   int dir_y2 = read_joy(JOY_Y2);
   pos3 = move(pos3, dir_x2, servo3);
   pos4 = move(pos4, dir_y2, servo4);
+
 
 
 
